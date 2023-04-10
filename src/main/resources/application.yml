@@ -1,0 +1,39 @@
+server:
+  port: 8082
+
+#eureka:
+#  client:
+#    register-with-eureka: true
+#    fetch-registry: true
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka/
+#  instance:
+#    hostname: localhost
+
+
+spring:
+  application:
+    name: BOOKING-SERVICE
+  profiles:
+    #    default profile
+    active: dev
+---
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: ${DATABASE_PASS}
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
