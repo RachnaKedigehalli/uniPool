@@ -30,10 +30,12 @@ public class UserService {
     public User register(User user) {
         log.info("register of UserService");
         user.setEmail(user.getEmail().toLowerCase());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()).toString());
         if(userRepository.existsByEmail(user.getEmail()))
             throw new RuntimeException("Email exists");
-        return userRepository.save(user);
+        user = userRepository.save(user);
+        user.setPassword(null);
+        return user;
     }
 
     public User getUserById(Long id) {
@@ -46,11 +48,28 @@ public class UserService {
     }
 
     public User login(User user) {
+        log.info("login of UserService");
         user.setEmail(user.getEmail().toLowerCase());
-//        if (Objects.nonNull(user.getEmail() && !"".equalsIgnoreCase(user.getEmail())) {
-//            User dbUser = userRepository.findDistinctByEmail(user.getEmail());
-////            if (user.getPassword().equals())
-//        }
-        return user;
+        if (Objects.nonNull(user.getEmail()) && !"".equalsIgnoreCase(user.getEmail()) && userRepository.existsByEmail(user.getEmail())) {
+            User dbUser = userRepository.findDistinctByEmail(user.getEmail());
+            System.out.println("Password encrypted entered " + user.getPassword());
+            if (passwordEncoder.matches(user.getPassword(), dbUser.getPassword())) {
+                return dbUser;
+            }
+            else {
+                throw new RuntimeException("Incorrect password");
+            }
+        }
+        else {
+            throw new RuntimeException("Invalid email");
+        }
+    }
+
+    public List<User> getUsersById(List<Long> userIds) {
+        return userRepository.findAll(userIds);
+    }
+
+    public boolean existsById(Long userId) {
+        return userRepository.existsById(userId);
     }
 }

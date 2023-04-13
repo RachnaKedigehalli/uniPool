@@ -22,8 +22,7 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody User user) {
         try {
-            User registeredUser = userService.register(user);
-            return ResponseEntity.ok(registeredUser);
+            return ResponseEntity.ok(userService.register(user));
         }
         catch (RuntimeException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
@@ -31,10 +30,38 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public User login(@RequestBody User user) {
-        return userService.login(user);
+    public ResponseEntity<?> login(@RequestBody User user) {
+        try {
+            return ResponseEntity.ok(userService.login(user));
+        }
+        catch (RuntimeException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
     }
 
+    // for blacklist --------------------
+    @PostMapping("/multiple")
+    public ResponseEntity<?> getUsersById(@RequestBody List<Long> userIds) {
+        try {
+            return ResponseEntity.ok(userService.getUsersById(userIds));
+        }
+        catch (RuntimeException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
+
+    @GetMapping("/exists/id/{id}")
+    public ResponseEntity<?> existsById(@PathVariable("id") Long userId) {
+        log.info("existsById in UserController");
+        System.out.println("existsById in UserController");
+        try {
+            return ResponseEntity.ok(userService.existsById(userId));
+        }
+        catch (RuntimeException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
+    // ------------------------------------
 //    @PostMapping("/edit")
 //    public User edit(@RequestBody User user) {
 //
