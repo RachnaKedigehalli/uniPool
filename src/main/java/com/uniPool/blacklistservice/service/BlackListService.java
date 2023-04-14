@@ -31,6 +31,7 @@ public class BlackListService {
     }
 
     public Object unblock(BlackList blackList) {
+        log.info("unblock in BlackListService------------------");
         if (!blackListRepository.existsById(blackList.getBlackListId())
             || !blackListRepository.existsByBlockerUserId(blackList.getBlockerUserId())
             || !blackListRepository.existsByBlockedUserId(blackList.getBlockedUserId()))
