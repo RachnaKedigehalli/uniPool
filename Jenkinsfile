@@ -3,6 +3,11 @@ pipeline {
     tools {
             maven 'maven'
     }
+    environment {
+        DATABASE_URL = credentials('uniPool_database_url')
+        DATABASE_USERNAME = credentials('uniPool_database_username')
+        DATABASE_PASS = credentials('uniPool_database_password')
+    }
     stages {
         stage('Git pull') {
             steps {
