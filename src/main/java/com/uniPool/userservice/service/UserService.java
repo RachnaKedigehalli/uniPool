@@ -66,7 +66,7 @@ public class UserService {
     }
 
     public List<User> getUsersById(List<Long> userIds) {
-        return userRepository.findAll(userIds);
+        return userRepository.findAllByUserIdIn(userIds);
     }
 
     public boolean existsById(Long userId) {
