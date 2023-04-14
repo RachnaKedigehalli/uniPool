@@ -41,6 +41,7 @@ public class BlackListService {
     }
 
     public List<User> getBlackListOfUser(Long blockerUserId) {
+        log.info("getBlackListOfUser in BlackListService------------------");
         List<BlackList> blackLists = blackListRepository.findAllByBlockerUserId(blockerUserId);
         List<Long> userIds = new ArrayList<>();
         blackLists.forEach(blackList -> userIds.add(blackList.getBlockedUserId()));
