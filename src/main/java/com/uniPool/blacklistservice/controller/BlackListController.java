@@ -19,6 +19,7 @@ public class BlackListController {
 
     @PostMapping("/block")
     public ResponseEntity<?> block(@Valid @RequestBody BlackList blackList) {
+        log.info("block in BlackListController------------------");
         try {
             return ResponseEntity.ok(blackListService.block(blackList));
         }
