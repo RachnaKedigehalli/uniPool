@@ -21,10 +21,10 @@ public class BlackListService {
     private RestTemplate restTemplate;
     public BlackList block(BlackList blackList) {
         log.info("block in BlackListService------------------");
-        boolean blockerExists = restTemplate.getForObject("http://localhost:8081/users/exists/id/" + blackList.getBlockerUserId(),
+        boolean blockerExists = restTemplate.getForObject("http://USER-SERVICE/users/exists/id/" + blackList.getBlockerUserId(),
                                 boolean.class);
-        boolean blockedExists = restTemplate.getForObject("http://localhost:8081/users/exists/id/" + blackList.getBlockedUserId(),
-                boolean.class);
+        boolean blockedExists = restTemplate.getForObject("http://USER-SERVICE/users/exists/id/" + blackList.getBlockedUserId(),
+                                boolean.class);
         if(!blockerExists || !blockedExists)
             throw new RuntimeException("User does not exist");
         return blackListRepository.save(blackList);
@@ -43,6 +43,6 @@ public class BlackListService {
         List<BlackList> blackLists = blackListRepository.findAllByBlockerUserId(blockerUserId);
         List<Long> userIds = new ArrayList<>();
         blackLists.forEach(blackList -> userIds.add(blackList.getBlockedUserId()));
-        return restTemplate.postForObject("http://localhost:8081/users/multiple/", userIds, List.class);
+        return restTemplate.postForObject("http://USER-SERVICE/users/multiple/", userIds, List.class);
     }
 }
