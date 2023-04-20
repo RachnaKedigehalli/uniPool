@@ -7,6 +7,7 @@ pipeline {
         DATABASE_URL = credentials('uniPool_database_url')
         DATABASE_USERNAME = credentials('uniPool_database_username')
         DATABASE_PASS = credentials('uniPool_database_password')
+        DOCKERHUB_REPO = credentials('uniPool_blacklist_repo')
     }
     stages {
         stage('Git pull') {
@@ -20,6 +21,25 @@ pipeline {
         stage('Build and Test') {
             steps {
                 sh 'mvn clean package'
+            }
+        }
+        stage('Build docker image') {
+            steps{
+                script {
+                    dockerImage = docker.build DOCKERHUB_REPO
+                }
+            }
+        }
+        stage('Publish to dockerhub') {
+            environment {
+               registryCredential = 'dockerhub_id'
+           }
+            steps{
+                script {
+                docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
+                    dockerImage.push("latest")
+                }
+                }
             }
         }
 
