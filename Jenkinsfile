@@ -25,14 +25,21 @@ pipeline {
             }
         }
         stage('Build docker image') {
-            steps {
-                sh 'docker build -t ${DOCKERHUB_REPO}:latest .'
+            steps{
+                script {
+                    dockerImage = docker.build ${DOCKERHUB_REPO}
+                }
             }
         }
         stage('Publish to dockerhub') {
-            steps {
-                withDockerRegistry([ credentialsId: "dockerhub_id", url: "" ]) {
-                    sh 'docker push ${DOCKERHUB_REPO}:latest'
+            environment {
+               registryCredential = 'dockerhub_id'
+           }
+            steps{
+                script {
+                docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
+                    dockerImage.push("latest")
+                }
                 }
             }
         }
