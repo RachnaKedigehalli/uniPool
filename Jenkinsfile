@@ -2,6 +2,7 @@ pipeline {
     agent any
     tools {
             maven 'maven'
+            docker 'docker'
     }
     environment {
         DATABASE_URL = credentials('uniPool_database_url')
