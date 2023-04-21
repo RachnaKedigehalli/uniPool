@@ -3,12 +3,13 @@ server:
 
 eureka:
   client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://eureka-0.eureka.default.svc.cluster.local:8761/eureka
   instance:
-    hostname: localhost
+    preferIpAddress: true
+    hostname: eureka-0
 
 spring:
   application:
@@ -16,14 +17,6 @@ spring:
   profiles:
     #    default profile
     active: dev
----
-spring:
-  profiles: dev
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    password: ${DATABASE_PASS}
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USERNAME}
   jpa:
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
@@ -34,3 +27,11 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
+---
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: ${DATABASE_PASS}
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
