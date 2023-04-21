@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booking-service
+  labels:
+    app: booking-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: booking-service
+  template:
+    metadata:
+      labels:
+        app: booking-service
+    spec:
+      containers:
+        - name: booking-service
+          image: samaelarch/unipool_booking_service:latest
+          imagePullPolicy: Always
+          # resources:
+          #   limits:
+          #     memory: "128Mi"
+          #     cpu: "500m"
+          ports:
+            - containerPort: 8082
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: booking-service-svc
+spec:
+  selector:
+    app: booking-service
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 8082
