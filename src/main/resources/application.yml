@@ -1,8 +1,12 @@
 server:
-#  8761 is default port for eureka server
+  #  8761 is default port for eureka server
   port: 8761
 
 eureka:
+  instance:
+    hostname: "${HOSTNAME}.eureka"
   client:
     register-with-eureka: false
     fetch-registry: false
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER_ADDRESS}
