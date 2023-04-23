@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: unipool-frontend
-          image: samaelarch/unipool_frontend
+          image: samaelarch/frontend
           imagePullPolicy: Always
           ports:
             - containerPort: 80
