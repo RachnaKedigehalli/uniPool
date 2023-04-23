@@ -2,6 +2,7 @@ import "./App.css";
 import LandingPage from "./pages/LandingPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { StateProvider } from "./StateProvider";
+import Navbar from "./components/Navbar/Navbar.tsx";
 
 function App() {
   var initialState = {
@@ -24,14 +25,17 @@ function App() {
 
   return (
     <StateProvider initialState={initialState} reducer={reducer}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          {/* <Route path="blogs" element={<Blogs />} />
+      <>
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            {/* <Route path="blogs" element={<Blogs />} />
             <Route path="contact" element={<Contact />} />
             <Route path="*" element={<NoPage />} /> */}
-        </Routes>
-      </BrowserRouter>
+          </Routes>
+        </BrowserRouter>
+      </>
     </StateProvider>
   );
 }

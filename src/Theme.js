@@ -11,7 +11,7 @@ const theme = extendTheme({
     headings: "2.6vw",
     navbar: "18px",
     logo: "1.3vw",
-    petitionFormField: "1.2vw",
+    tags: "0.7vw",
   },
   colors: {
     bg: {
@@ -23,8 +23,15 @@ const theme = extendTheme({
       blue: "#777EFF",
       grad: "linear-gradient(60deg, #F8CEFA, #777EFF)",
     },
+    tagText: {
+      light: "#afafaf",
+      dark: "#f2f2f2",
+    },
   },
-  radii: {},
+  radii: {
+    button: "100px",
+    input: "20px",
+  },
   sizes: {},
 });
 

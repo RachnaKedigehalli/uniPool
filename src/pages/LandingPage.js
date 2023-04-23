@@ -1,12 +1,12 @@
 import React from "react";
-import NavBar from "../components/Navbar.tsx";
+import NavBar from "../components/Navbar/Navbar.tsx";
 import { Box, flexbox, useColorModeValue } from "@chakra-ui/react";
 import Banner from "../components/Banner.js";
 
 const LandingPage = () => {
   return (
     <>
-      <NavBar />
+      {/* <NavBar /> */}
       <Box
         bg={useColorModeValue("bg.light", "bg.dark")}
         style={{

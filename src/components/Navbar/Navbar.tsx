@@ -17,17 +17,22 @@ import {
   useColorMode,
   textDecoration,
   Text,
+  Image,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { useStateValue } from "../StateProvider";
+import { useStateValue } from "../../StateProvider";
+import ProfileOptions from "./ProfileOptions";
+import RegisterLogin from "./RegisterLogin";
+import logo_light from "../../assets/uniPool.png";
+import logo_dark from "../../assets/uniPool_dark.png";
 
 const NavLink = ({ children }: { children: ReactNode }) => (
   <Link to="/">
     <Button
-      variant="ghost"
+      variant="link"
       _hover={{
         // background: "accents.grad",
         color: useColorModeValue("accents.blue", "accents.pink"),
@@ -53,6 +58,8 @@ export default function Simple() {
         fontFamily={"navbar"}
         fontSize={"navbar"}
         fontWeight={"medium"}
+        paddingX={7}
+        pt={2}
       >
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
@@ -68,10 +75,18 @@ export default function Simple() {
               style={{
                 fontWeight: "bold",
                 fontSize: 20,
-                marginLeft: "2vw",
               }}
+              display={"flex"}
+              alignItems={"center"}
+              flexDirection={"row"}
             >
-              uniPool
+              <Image
+                src={colorMode == "light" ? logo_light : logo_dark}
+                h={6}
+                w={6}
+                mr={2}
+              ></Image>
+              <Text>uniPool</Text>
             </Box>
             <HStack
               as={"nav"}
@@ -89,41 +104,11 @@ export default function Simple() {
               style={{
                 marginRight: "2vw",
               }}
+              borderRadius={"button"}
             >
               {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
             </Button>
-            <Menu>
-              <MenuButton
-                as={Button}
-                // rounded={"full"}
-                variant={"ghost"}
-                // cursor={"pointer"}
-                bg={useColorModeValue("bg.dark", "bg.light")}
-                color={useColorModeValue("bg.light", "bg.dark")}
-                _hover={{
-                  color: useColorModeValue("bg.dark", "bg.light"),
-                  background: "accents.grad",
-                }}
-                minW={0}
-              >
-                {state.isLoggedIn ? (
-                  <Avatar
-                    size={"sm"}
-                    src={
-                      "https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
-                    }
-                  />
-                ) : (
-                  <Text>{"Sign in"}</Text>
-                )}
-              </MenuButton>
-              <MenuList>
-                <MenuItem>My Account</MenuItem>
-                <MenuItem>My Bookings</MenuItem>
-                <MenuDivider />
-                <MenuItem>Logout</MenuItem>
-              </MenuList>
-            </Menu>
+            {state.isLoggedIn ? <ProfileOptions /> : <RegisterLogin />}
           </Flex>
         </Flex>
 
