@@ -15,6 +15,9 @@ spec:
       containers:
         - name: unipool-frontend
           image: samaelarch/frontend
+          env:
+            - name: API_GATEWAY_URL
+              value: http://api-gateway-svc:9191
           imagePullPolicy: Always
           ports:
             - containerPort: 80
