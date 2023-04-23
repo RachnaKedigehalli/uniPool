@@ -37,7 +37,7 @@ const RegisterForm = () => {
     };
     console.log("body: ", body);
     axios
-      .get("http://api-gateway-svc:9191/users/exists/id/1")
+      .get("/users/exists/id/1")
       .then((res) => {
         console.log("register: ", res);
       })
