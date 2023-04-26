@@ -4,7 +4,7 @@ pipeline {
             maven 'maven'
     }
     environment {
-        DOCKERHUB_REPO = credentials('uniPool_api_gateway_repo')
+        // DOCKERHUB_REPO = credentials('uniPool_api_gateway_repo')
     }
     stages {
         stage('Git pull') {
@@ -23,7 +23,7 @@ pipeline {
         stage('Build docker image') {
             steps{
                 script {
-                    dockerImage = docker.build DOCKERHUB_REPO
+                    dockerImage = docker.build  "samaelarch/unipool_api_gateway"
                 }
             }
         }
