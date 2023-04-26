@@ -24,6 +24,19 @@ spec:
           #     cpu: "500m"
           ports:
             - containerPort: 8081
+          env:
+            - name: DATABASE_URL
+              value: jdbc:postgresql://postgres-db:5432/uniPooldb
+            - name: DATABASE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: unipool-secret
+                  key: DATABASE_USERNAME
+            - name: DATABASE_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: unipool-secret
+                  key: DATABASE_PASS
 
 ---
 apiVersion: v1
