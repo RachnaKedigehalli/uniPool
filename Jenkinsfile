@@ -3,6 +3,9 @@ pipeline {
     tools {
             maven 'maven'
     }
+    environment {
+        HOSTNAME = 'localhost'
+    }
     stages {
         stage('Git pull') {
             steps {
