@@ -26,7 +26,7 @@ pipeline {
         stage('Build docker image') {
             steps{
                 script {
-                    dockerImage = docker.build "samaelarch/unipool_blacklist_service"
+                    dockerImage = docker.build "samaelarch/unipool_blacklist_service:latest"
                 }
             }
         }
