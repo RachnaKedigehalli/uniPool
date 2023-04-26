@@ -3,9 +3,6 @@ pipeline {
     tools {
             maven 'maven'
     }
-    environment {
-        DOCKERHUB_REPO = credentials('uniPool_frontend_repo')
-    }
     stages {
         stage('Git pull') {
             steps {
@@ -23,7 +20,7 @@ pipeline {
         stage('Build docker image') {
             steps{
                 script {
-                    dockerImage = docker.build DOCKERHUB_REPO
+                    dockerImage = docker.build "samaelarch/frontend"
                 }
             }
         }
