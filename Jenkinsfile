@@ -3,9 +3,6 @@ pipeline {
     tools {
             maven 'maven'
     }
-    environment {
-        // DOCKERHUB_REPO = credentials('uniPool_api_gateway_repo')
-    }
     stages {
         stage('Git pull') {
             steps {
