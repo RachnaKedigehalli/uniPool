@@ -20,7 +20,7 @@ pipeline {
         stage('Build docker image') {
             steps{
                 script {
-                    dockerImage = docker.build  "samaelarch/unipool_api_gateway"
+                    dockerImage = docker.build  "samaelarch/unipool_api_gateway:latest"
                 }
             }
         }
