@@ -18,6 +18,7 @@ import {
   textDecoration,
   Text,
   Image,
+  LinkProps,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import React from "react";
@@ -28,28 +29,42 @@ import ProfileOptions from "./ProfileOptions";
 import RegisterLogin from "./RegisterLogin";
 import logo_light from "../../assets/uniPool.png";
 import logo_dark from "../../assets/uniPool_dark.png";
+import { To } from "react-router-dom";
 
-const NavLink = ({ children }: { children: ReactNode }) => (
-  <Link to="/">
-    <Button
-      variant="link"
-      _hover={{
-        // background: "accents.grad",
-        color: useColorModeValue("accents.blue", "accents.pink"),
-      }}
-    >
-      {children}
-    </Button>
-  </Link>
-);
+const NavLink = ({ children, link }: { children: ReactNode; link: To }) => {
+  const { colorMode, toggleColorMode } = useColorMode();
+  return (
+    <Link to={link}>
+      <Button
+        variant="link"
+        style={{
+          color: `${colorMode == "light" ? "#000000" : "#ffffff"}`,
+        }}
+        _hover={{
+          color: useColorModeValue("accents.blue", "accents.pink"),
+        }}
+      >
+        {children}
+      </Button>
+    </Link>
+  );
+};
 
 export default function Simple() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
   const [state, dispatch] = useStateValue();
   const Links = !state.isLoggedIn
-    ? ["Home", "About", "Team"]
-    : ["Home", "Add a trip", "My trips"];
+    ? [
+        { name: "Home", link: "/" },
+        { name: "About", link: "/about" },
+        { name: "Team", link: "/team" },
+      ]
+    : [
+        { name: "Home", link: "/home" },
+        { name: "Add a trip", link: "/addTrip" },
+        { name: "My trips", link: "/myTrips" },
+      ];
   return (
     <>
       <Box
@@ -94,7 +109,9 @@ export default function Simple() {
               display={{ base: "none", md: "flex" }}
             >
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLink key={link.name} link={link.link}>
+                  {link.name}
+                </NavLink>
               ))}
             </HStack>
           </HStack>
@@ -116,7 +133,9 @@ export default function Simple() {
           <Box pb={4} display={{ md: "none" }}>
             <Stack as={"nav"} spacing={4}>
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLink key={link.name} link={link.link}>
+                  {link.name}
+                </NavLink>
               ))}
             </Stack>
           </Box>

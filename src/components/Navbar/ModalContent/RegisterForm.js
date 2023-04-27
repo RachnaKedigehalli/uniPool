@@ -27,6 +27,12 @@ const RegisterForm = () => {
       );
   };
 
+  const validatePhone = (phone) => {
+    return String(phone)
+      .toLowerCase()
+      .match(/^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/);
+  };
+
   const onSubmit = async () => {
     const body = {
       firstName: firstName,
@@ -37,9 +43,9 @@ const RegisterForm = () => {
     };
     console.log("body: ", body);
     axios
-      .get("/api/users/exists/id/1")
+      .post("/api/users/register", body)
       .then((res) => {
-        console.log("register: ", res);
+        console.log("register: ", res.data);
       })
       .catch(console.log);
   };
@@ -101,7 +107,11 @@ const RegisterForm = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <InputRightElement children={<CheckIcon color="green.500" />} />
+            {validateEmail(email) ? (
+              <InputRightElement children={<CheckIcon color="green.500" />} />
+            ) : (
+              <></>
+            )}
           </InputGroup>
         </Stack>
         <Stack>
@@ -124,7 +134,11 @@ const RegisterForm = () => {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
-            <InputRightElement children={<CheckIcon color="green.500" />} />
+            {validatePhone(phone) ? (
+              <InputRightElement children={<CheckIcon color="green.500" />} />
+            ) : (
+              <></>
+            )}
           </InputGroup>
         </Stack>
         <Stack>
@@ -150,12 +164,25 @@ const RegisterForm = () => {
             marginTop={5}
             bg={useColorModeValue("bg.dark", "bg.light")}
             color={useColorModeValue("bg.light", "bg.dark")}
+            style={{
+              transition: "1s",
+            }}
             _hover={{
               color: useColorModeValue("bg.dark", "bg.light"),
               background: "accents.grad",
+              transition: "1s",
             }}
             borderRadius={"button"}
             w="80%"
+            isDisabled={
+              !firstName ||
+              !lastName ||
+              !email ||
+              !pass ||
+              !phone ||
+              !validateEmail(email) ||
+              !validatePhone(phone)
+            }
           >
             Register
           </Button>

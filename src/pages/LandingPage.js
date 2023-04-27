@@ -6,10 +6,10 @@ import Banner from "../components/Banner.js";
 const LandingPage = () => {
   return (
     <>
-      {/* <NavBar /> */}
       <Box
         bg={useColorModeValue("bg.light", "bg.dark")}
         style={{
+          flex: "1",
           flexDirection: "column",
           height: "100vh",
         }}
