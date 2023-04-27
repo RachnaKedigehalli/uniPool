@@ -2,6 +2,7 @@ pipeline {
     agent any
     tools {
             maven 'maven'
+            nodejs 'nodejs'
     }
     stages {
         stage('Git pull') {
@@ -20,7 +21,7 @@ pipeline {
         stage('Build docker image') {
             steps{
                 script {
-                    dockerImage = docker.build "samaelarch/frontend"
+                    dockerImage = docker.build "samaelarch/frontend:latest"
                 }
             }
         }
