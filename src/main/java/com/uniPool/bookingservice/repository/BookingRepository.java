@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long> {
-    List<Booking> findAllByDestinationAndSourceAndStartTimeBeforeAndEndTimeAfter(String destination, String source, Date start, Date end);
+    List<Booking> findAllByDestinationAndSourceAndStartTimeLessThanEqualAndEndTimeGreaterThanEqual(String destination, String source, Date start, Date end);
 }

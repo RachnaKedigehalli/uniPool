@@ -26,7 +26,7 @@ public class BookingService {
 
     public List<Booking> searchBooking(Booking booking) {
         log.info("searchBooking of BookingService");
-        return bookingRepository.findAllByDestinationAndSourceAndStartTimeBeforeAndEndTimeAfter(booking.getDestination(), booking.getSource(), booking.getStartTime(), booking.getEndTime());
+        return bookingRepository.findAllByDestinationAndSourceAndStartTimeLessThanEqualAndEndTimeGreaterThanEqual(booking.getDestination(), booking.getSource(), booking.getStartTime(), booking.getEndTime());
     }
 
     public PoolMember addPoolMember(PoolMember poolMember) {
