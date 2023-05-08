@@ -38,6 +38,16 @@ public class BookingController {
         }
     }
 
+    @PostMapping("/search")
+    public ResponseEntity<?> searchBooking(@RequestBody Booking booking) {
+        try {
+            return ResponseEntity.ok(bookingService.searchBooking(booking));
+        }
+        catch (RuntimeException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
+
     @PostMapping("/pool/add")
     public ResponseEntity<?> addPoolMember(@Valid @RequestBody PoolMember poolMember) {
 //        booking creator to add users to pool, only creator can add

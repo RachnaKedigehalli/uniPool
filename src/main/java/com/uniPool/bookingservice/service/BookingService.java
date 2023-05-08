@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class BookingService {
@@ -20,6 +22,11 @@ public class BookingService {
     public Booking addBooking(Booking booking) {
         log.info("addBooking of BookingService");
         return bookingRepository.save(booking);
+    }
+
+    public List<Booking> searchBooking(Booking booking) {
+        log.info("searchBooking of BookingService");
+        return bookingRepository.findAllByDestinationAndSourceAndStartTimeBeforeAndEndTimeAfter(booking.getDestination(), booking.getSource(), booking.getStartTime(), booking.getEndTime());
     }
 
     public PoolMember addPoolMember(PoolMember poolMember) {
