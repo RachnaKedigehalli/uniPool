@@ -17,7 +17,7 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long bookingId;
-    @NotBlank(message = "Creator User ID is required")
+    @NotNull(message = "Creator User ID is required")
     private Long creatorUserId;
     @NotBlank(message = "Source is required")
     private String source;
