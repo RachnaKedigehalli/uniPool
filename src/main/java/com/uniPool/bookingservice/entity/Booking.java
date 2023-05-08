@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -22,13 +23,13 @@ public class Booking {
     private String source;
     @NotBlank(message = "Destination is required")
     private String destination;
-    @NotBlank(message = "Time is required")
+    @NotNull(message = "Time is required")
     @Temporal(TemporalType.TIMESTAMP)
     private Date setTime;
-    @NotBlank(message = "Time window is required")
+    @NotNull(message = "Time window is required")
     @Temporal(TemporalType.TIMESTAMP)
     private Date startTime;
-    @NotBlank(message = "Time window is required")
+    @NotNull(message = "Time window is required")
     @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
 }
