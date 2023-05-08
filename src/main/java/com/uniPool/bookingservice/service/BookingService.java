@@ -75,4 +75,8 @@ public class BookingService {
         }
         return poolMemberRepository.deleteByPoolId(poolId);
     }
+
+    public List<PoolMember> getAllPoolMembers(Long bookingId) {
+        return poolMemberRepository.findPoolMembersByBookingId(bookingId);
+    }
 }

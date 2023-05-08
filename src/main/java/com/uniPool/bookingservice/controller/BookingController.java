@@ -92,6 +92,16 @@ public class BookingController {
         }
     }
 
+    @GetMapping("/pool/getPoolMembers/{bookingId}")
+    public ResponseEntity<?> getPoolMembers(@PathVariable("bookingId") Long bookingId) {
+        try {
+            return ResponseEntity.ok(bookingService.getAllPoolMembers(bookingId));
+        }
+        catch (RuntimeException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
+
     @DeleteMapping("/pool/{poolId}")
     public ResponseEntity<?> removePoolMember(@PathVariable("poolId") Long poolId) {
         try {
