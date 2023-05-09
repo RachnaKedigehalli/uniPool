@@ -11,6 +11,8 @@ import {
   Button,
 } from "@chakra-ui/react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useStateValue } from "../../../StateProvider";
 
 const RegisterForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -18,6 +20,8 @@ const RegisterForm = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [pass, setPass] = useState("");
+  const navigate = useNavigate();
+  const [state, dispatch] = useStateValue();
 
   const validateEmail = (email) => {
     return String(email)
@@ -42,10 +46,23 @@ const RegisterForm = () => {
       password: pass,
     };
     console.log("body: ", body);
-    axios
-      .post("/api/users/register", body)
-      .then((res) => {
+    await axios
+      .post("http://localhost:30697/users/register", body)
+      .then(async (res) => {
         console.log("register: ", res.data);
+        await dispatch({
+          type: "setIsLoggedIn",
+          payload: {
+            isLoggedIn: true,
+          },
+        });
+        await dispatch({
+          type: "setUser",
+          payload: {
+            user: res.data,
+          },
+        });
+        navigate("/home");
       })
       .catch(console.log);
   };

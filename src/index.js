@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider } from "@chakra-ui/react";
 import "@fontsource/poppins";
+
 import theme from "./Theme";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

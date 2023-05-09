@@ -56,13 +56,13 @@ export default function Simple() {
   const [state, dispatch] = useStateValue();
   const Links = !state.isLoggedIn
     ? [
-        { name: "Home", link: "/" },
+        // { name: "Home", link: "/" },
         { name: "About", link: "/about" },
         { name: "Team", link: "/team" },
       ]
     : [
         { name: "Home", link: "/home" },
-        { name: "Add a trip", link: "/addTrip" },
+        // { name: "Add a trip", link: "/addTrip" },
         { name: "My trips", link: "/myTrips" },
       ];
   return (

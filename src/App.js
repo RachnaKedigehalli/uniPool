@@ -1,12 +1,13 @@
 import "./App.css";
-import LandingPage from "./pages/LandingPage";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 import { StateProvider } from "./StateProvider";
-import Navbar from "./components/Navbar/Navbar.tsx";
+
+import AppRoutes from "./AppRoutes";
 
 function App() {
   var initialState = {
     isLoggedIn: false,
+    user: null,
   };
 
   const reducer = (state, action) => {
@@ -15,6 +16,11 @@ function App() {
         return {
           ...state,
           isLoggedIn: action.payload.isLoggedIn,
+        };
+      case "setUser":
+        return {
+          ...state,
+          user: action.payload.user,
         };
       default:
         return {
@@ -26,15 +32,7 @@ function App() {
   return (
     <StateProvider initialState={initialState} reducer={reducer}>
       <>
-        <BrowserRouter>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            {/* <Route path="blogs" element={<Blogs />} />
-            <Route path="contact" element={<Contact />} />
-            <Route path="*" element={<NoPage />} /> */}
-          </Routes>
-        </BrowserRouter>
+        <AppRoutes />
       </>
     </StateProvider>
   );

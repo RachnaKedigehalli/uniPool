@@ -91,7 +91,7 @@ const RegisterModal = ({ isOpen, onOpen, onClose }) => {
           >
             {modalState == "login" ? (
               <>
-                <LoginForm />
+                <LoginForm onClose={onClose} />
                 <HStack mt={10} w={"80%"} justifyContent={"space-evenly"}>
                   <Divider orientation="horizontal" borderColor={borderColor} />
                   <Text>or</Text>
@@ -106,7 +106,7 @@ const RegisterModal = ({ isOpen, onOpen, onClose }) => {
               </>
             ) : (
               <>
-                <RegisterForm />
+                <RegisterForm onClose={onClose} />
                 <Button
                   variant={"link"}
                   onClick={() => setModalState("login")}
