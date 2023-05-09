@@ -70,7 +70,7 @@ public class BookingService {
     }
 
     @Transactional
-    public PoolMember removePoolMember(Long poolId) {
+    public Integer removePoolMember(Long poolId) {
         log.info("removePoolMember of BookingService");
         if (!poolMemberRepository.existsById(poolId)) {
             throw new RuntimeException("Invalid Id");

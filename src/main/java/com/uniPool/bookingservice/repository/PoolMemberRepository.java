@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface PoolMemberRepository extends JpaRepository<PoolMember, Long> {
-    PoolMember deleteByPoolId(Long poolId);
+    Integer deleteByPoolId(Long poolId);
     List<PoolMember> findPoolMembersByBookingId(Long bookingId);
 }
