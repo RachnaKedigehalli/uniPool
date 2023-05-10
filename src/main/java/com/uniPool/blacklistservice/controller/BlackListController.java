@@ -1,10 +1,9 @@
 package com.uniPool.blacklistservice.controller;
 
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.uniPool.blacklistservice.entity.BlackList;
 import com.uniPool.blacklistservice.service.BlackListService;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +15,7 @@ import javax.validation.Valid;
 public class BlackListController {
     @Autowired
     private BlackListService blackListService;
-    private static final Logger logger = LogManager.getLogger(BlackListController.class);
+    private static final Logger logger = LoggerFactory.getLogger(BlackListController.class);
     @PostMapping("/block")
     public ResponseEntity<?> block(@Valid @RequestBody BlackList blackList) {
         logger.info("block in BlackListController------------------");
