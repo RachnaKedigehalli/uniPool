@@ -2,7 +2,7 @@ pipeline {
     agent any
     tools {
             maven 'maven'
-            nodejs 'nodejs'
+            // nodejs 'nodejs'
     }
     stages {
         stage('Git pull') {
