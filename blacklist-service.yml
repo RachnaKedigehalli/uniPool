@@ -27,10 +27,6 @@ spec:
           volumeMounts:
             - name: log-path
               mountPath: /var/log/unipool
-      volumes:
-        - name: log-path
-          hostPath:
-            path: /var/log/unipool
           env:
             - name: DATABASE_URL
               value: jdbc:postgresql://postgres-db:5432/uniPooldb
@@ -56,6 +52,10 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
+      volumes:
+        - name: log-path
+          hostPath:
+            path: /var/log/unipool
 ---
 apiVersion: v1
 kind: Service
