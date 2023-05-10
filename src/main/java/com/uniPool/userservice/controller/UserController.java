@@ -2,7 +2,8 @@ package com.uniPool.userservice.controller;
 
 import com.uniPool.userservice.entity.User;
 import com.uniPool.userservice.service.UserService;
-import lombok.extern.slf4j.Slf4j;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +14,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
-@Slf4j
 public class UserController {
-
+    private static final Logger logger = LogManager.getLogger(UserController.class);
     @Autowired
     private UserService userService;
 
@@ -52,7 +52,7 @@ public class UserController {
 
     @GetMapping("/exists/id/{id}")
     public ResponseEntity<?> existsById(@PathVariable("id") Long userId) {
-        log.info("existsById in UserController");
+        logger.info("existsById in UserController");
         System.out.println("existsById in UserController");
         try {
             return ResponseEntity.ok(userService.existsById(userId));
@@ -81,7 +81,7 @@ public class UserController {
 
 //    @PostMapping("/")
 //    public User addUser(@RequestBody User user) {
-//        log.info("addUser of UserController");
+//        logger.info("addUser of UserController");
 //        return userService.addUser(user);
 //    }
 //
