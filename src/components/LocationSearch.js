@@ -15,7 +15,7 @@ function LocationSearch(props) {
   const [suggestions, setSuggestions] = useState([]);
   const { colorMode, toggleColorMode } = useColorMode();
   const [isBlurred, setIsBlurred] = useState(true);
-  const api_key = "";
+  const api_key = process.env.REACT_APP_API_KEY;
 
   const call_api = async () => {
     if (location != "") {

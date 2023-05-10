@@ -8,4 +8,4 @@ COPY build/ /usr/share/nginx/html
 # ENTRYPOINT ["sh","/frontend-entrypoint.sh"]
 
 # CMD ["nginx", "-g", "daemon off;"]
-EXPOSE 80
+EXPOSE 3000

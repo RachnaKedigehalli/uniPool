@@ -17,10 +17,15 @@ spec:
           image: samaelarch/frontend
           env:
             - name: API_GATEWAY_URL
-              value: http://api-gateway-svc:9191
+              value: http://api-gateway-svc:9898
+            - name: REACT_APP_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: unipool-secret
+                  key: REACT_APP_API_KEY
           imagePullPolicy: Always
           ports:
-            - containerPort: 80
+            - containerPort: 3000
       restartPolicy: Always
 
 ---
@@ -31,8 +36,8 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    - port: 80
-      targetPort: 80
+    - port: 3001
+      targetPort: 3000
       protocol: TCP
   selector:
     app: unipool-frontend
