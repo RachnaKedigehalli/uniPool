@@ -3,7 +3,8 @@ package com.uniPool.blacklistservice.controller;
 
 import com.uniPool.blacklistservice.entity.BlackList;
 import com.uniPool.blacklistservice.service.BlackListService;
-import lombok.extern.slf4j.Slf4j;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,15 +12,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@Slf4j
 @RequestMapping("/blacklist")
 public class BlackListController {
     @Autowired
     private BlackListService blackListService;
-
+    private static final Logger logger = LogManager.getLogger(BlackListController.class);
     @PostMapping("/block")
     public ResponseEntity<?> block(@Valid @RequestBody BlackList blackList) {
-        log.info("block in BlackListController------------------");
+        logger.info("block in BlackListController------------------");
         try {
             return ResponseEntity.ok(blackListService.block(blackList));
         }
