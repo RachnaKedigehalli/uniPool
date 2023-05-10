@@ -4,23 +4,24 @@ package com.uniPool.bookingservice.controller;
 import com.uniPool.bookingservice.entity.Booking;
 import com.uniPool.bookingservice.entity.PoolMember;
 import com.uniPool.bookingservice.service.BookingService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import javax.validation.Valid;
 
 @RestController
-@Slf4j
+
 @RequestMapping("/bookings")
 public class BookingController {
     @Autowired
     private BookingService bookingService;
-
+    private static final Logger logger = LogManager.getLogger(BookingController.class);
     @PostMapping("/")
     public ResponseEntity<?> addBooking(@Valid @RequestBody Booking booking) {
         try {
+            logger.info("Booking added");
             return ResponseEntity.ok(bookingService.addBooking(booking));
         }
         catch (RuntimeException exception) {
@@ -41,6 +42,7 @@ public class BookingController {
     @PostMapping("/search")
     public ResponseEntity<?> searchBooking(@RequestBody Booking booking) {
         try {
+            logger.info("Searched for a booking");
             return ResponseEntity.ok(bookingService.searchBooking(booking));
         }
         catch (RuntimeException exception) {
@@ -65,6 +67,7 @@ public class BookingController {
         // users to send requests to join pool
         //        status PENDING is set
         try {
+            logger.info("Request sent for pooling");
             return ResponseEntity.ok(bookingService.sendPoolRequest(poolMember));
         }
         catch (RuntimeException exception) {
