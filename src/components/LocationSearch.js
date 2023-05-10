@@ -9,13 +9,14 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import axios from "axios";
+import env from "react-dotenv";
 
 function LocationSearch(props) {
   const [location, setLocation] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const { colorMode, toggleColorMode } = useColorMode();
   const [isBlurred, setIsBlurred] = useState(true);
-  const api_key = process.env.REACT_APP_API_KEY;
+  const api_key = `${env.REACT_APP_API_KEY}`;
 
   const call_api = async () => {
     if (location != "") {

@@ -2,7 +2,7 @@ import React from "react";
 import NavBar from "../components/Navbar/Navbar.tsx";
 import { Box, flexbox, useColorModeValue } from "@chakra-ui/react";
 import Banner from "../components/Banner.js";
-
+import env from "react-dotenv";
 const LandingPage = () => {
   return (
     <>

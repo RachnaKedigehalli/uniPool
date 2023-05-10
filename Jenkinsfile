@@ -4,6 +4,9 @@ pipeline {
             maven 'maven'
             // nodejs 'nodejs'
     }
+    environment {
+        REACT_APP_API_KEY = credentials('location_api_key')
+    }
     stages {
         stage('Git pull') {
             steps {
