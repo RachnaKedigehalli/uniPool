@@ -7,8 +7,8 @@ import com.uniPool.bookingservice.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import javax.validation.Valid;
 
 @RestController
@@ -17,7 +17,7 @@ import javax.validation.Valid;
 public class BookingController {
     @Autowired
     private BookingService bookingService;
-    private static final Logger logger = LoggerFactory.getLogger(BookingController.class);
+    private static final Logger logger = LogManager.getLogger(BookingController.class);
     @PostMapping("/")
     public ResponseEntity<?> addBooking(@Valid @RequestBody Booking booking) {
         try {
