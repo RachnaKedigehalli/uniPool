@@ -12,12 +12,9 @@
         </Property>
     </Properties>
     <Appenders>
-        <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
-            <PatternLayout pattern="${LOG_PATTERN}"/>
-        </Console>
         <!-- Rolling File Appender -->
-        <RollingFile name="FileAppender" fileName="${BASE_PATH}/unipool#${PROJECT_NAME}#${env:MY_NODE_NAME}#${env:MY_POD_NAMESPACE}#${env:MY_POD_NAME}.log" 
-                immediateFlush="true" filePattern="${BASE_PATH}/unipool#${PROJECT_NAME}#${env:MY_NODE_NAME}#${env:MY_POD_NAMESPACE}#${env:MY_POD_NAME}#%d{yyyy-MM-dd}.log">
+        <RollingFile name="FileAppender" fileName="${BASE_PATH}/unipool#${PROJECT_NAME}#${env:MY_NODE_NAME}#${env:MY_POD_NAME}.log" 
+                immediateFlush="true" filePattern="${BASE_PATH}/unipool#${PROJECT_NAME}#${env:MY_NODE_NAME}#${env:MY_POD_NAME}#%d{yyyy-MM-dd}.log">
             <PatternLayout>
                 <Pattern>${LOG_PATTERN}</Pattern>
             </PatternLayout>
@@ -28,14 +25,9 @@
         </RollingFile>
     </Appenders>
     <Loggers>
-        <Logger name="com.uniPool" level="debug" additivity="false">
-            <AppenderRef ref="ConsoleAppender" />
+        <Root level="debug">
             <AppenderRef ref="FileAppender" />
-        </Logger>
-
-        <Root level="info">
-            <AppenderRef ref="ConsoleAppender" />
-            <AppenderRef ref="FileAppender" />
+            
         </Root>
     </Loggers>
 </Configuration>
