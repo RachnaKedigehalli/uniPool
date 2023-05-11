@@ -1,7 +1,7 @@
 package com.uniPool.blacklistservice.controller;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import com.uniPool.blacklistservice.entity.BlackList;
 import com.uniPool.blacklistservice.service.BlackListService;
 import org.springframework.beans.factory.annotation.Autowired;
