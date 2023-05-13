@@ -16,11 +16,13 @@
         state: present
   tasks:
     - name: Delete any existing deployment of User Service
-      k8s:
+      kubernetes.core.k8s:
         src: user-service.yml
         state: absent
+        namespace: default
     - name: Create a deployment for User Service
-      k8s:
+      kubernetes.core.k8s:
         src: user-service.yml
         state: present
+        apply: true
         namespace: default
