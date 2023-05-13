@@ -1,0 +1,21 @@
+- name: pull updated image
+  hosts: unipool_hosts
+  pre_tasks:
+    - name: Check Minikube's status.
+      command: minikube status
+      register: minikube_status
+      changed_when: false
+      ignore_errors: true
+    # Otherwise will start minikube
+    - name: Start Minikube if it's not running.
+      command: minikube start --vm-driver=docker --cpus 4 --memory 9152
+      when: "not minikube_status.stdout or 'Running' not in minikube_status.stdout"
+  tasks:
+    - name: Delete any existing deployment of User Service
+      k8s:
+        src: user-service.yml
+        state: absent
+    - name: Create a deployment for User Service
+      k8s:
+        src: user-service.yml
+        state: present
