@@ -1,5 +1,5 @@
 - name: pull updated image
-  hosts: unipool_hosts
+  hosts: all
   pre_tasks:
     - name: Check Minikube's status.
       command: minikube status
