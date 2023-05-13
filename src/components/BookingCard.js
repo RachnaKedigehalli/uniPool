@@ -29,7 +29,7 @@ function BookingCard({ book }) {
         setUser(res.data);
       })
       .catch(console.log);
-  });
+  }, []);
   return (
     <Box
       borderColor={colorMode == "light" ? "#000000" : "#ffffff"}
