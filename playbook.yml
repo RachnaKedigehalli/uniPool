@@ -1,0 +1,28 @@
+- name: pull updated image
+  hosts: all
+  pre_tasks:
+    - name: Check Minikube's status.
+      command: minikube status
+      register: minikube_status
+      changed_when: false
+      ignore_errors: true
+    # Otherwise will start minikube
+    - name: Start Minikube if it's not running.
+      command: minikube start --vm-driver=docker --cpus 4 --memory 9152
+      when: "not minikube_status.stdout or 'Running' not in minikube_status.stdout"
+    - name: "Install kubernetes python package"
+      pip:
+        name: kubernetes
+        state: present
+  tasks:
+    - name: Delete any existing deployment of Service registry
+      kubernetes.core.k8s:
+        src: service-registry.yml
+        state: absent
+        namespace: default
+    - name: Create a deployment for Service registry
+      kubernetes.core.k8s:
+        src: service-registry.yml
+        state: present
+        apply: true
+        namespace: default
