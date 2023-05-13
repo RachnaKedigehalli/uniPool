@@ -77,16 +77,4 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-
-
-//    @PostMapping("/")
-//    public User addUser(@RequestBody User user) {
-//        logger.info("addUser of UserController");
-//        return userService.addUser(user);
-//    }
-//
-//    @GetMapping("/email/{email}")
-//    public User getUserByEmail(@PathVariable("email") String email) {
-//        return userService.getUserByEmail(email);
-//    }
 }

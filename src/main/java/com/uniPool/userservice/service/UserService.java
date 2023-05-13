@@ -18,17 +18,10 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User addUser(User user) {
-        log.info("addUser of UserService");
-        return userRepository.save(user);
-    }
-
-    public User getUserByEmail(String email) {
-        return userRepository.findDistinctByEmail(email);
-    }
-
     public User register(User user) {
         log.info("register of UserService");
+        if(user.getEmail().equals("") || user.getPassword().equals(""))
+            throw new RuntimeException("Invalid fields");
         user.setEmail(user.getEmail().toLowerCase());
         user.setPassword(passwordEncoder.encode(user.getPassword()).toString());
         if(userRepository.existsByEmail(user.getEmail()))
@@ -36,15 +29,6 @@ public class UserService {
         user = userRepository.save(user);
         user.setPassword(null);
         return user;
-    }
-
-    public User getUserById(Long id) {
-        log.info("getUserById of UserService");
-        return userRepository.findById(id).get();
-    }
-
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
     }
 
     public User login(User user) {
@@ -65,11 +49,25 @@ public class UserService {
         }
     }
 
+    public User getUserById(Long id) {
+        log.info("getUserById of UserService");
+        return userRepository.findById(id).get();
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+
     public List<User> getUsersById(List<Long> userIds) {
         return userRepository.findAllByUserIdIn(userIds);
     }
 
     public boolean existsById(Long userId) {
         return userRepository.existsById(userId);
+    }
+
+    public void deleteAll() {
+        userRepository.deleteAll();
     }
 }
