@@ -90,10 +90,6 @@ data:
           split => ["tmp_podname", "."]
           add_field => { "kubernetes.pod.name" => "%{tmp_podname}" }
         }
-
-        mutate {
-          remove_field => [ "tmp_path", "tmp_podname" ]
-        }
       }
     }
 
