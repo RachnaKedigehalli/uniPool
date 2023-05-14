@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-db
+spec:
+  selector:
+    matchLabels:
+      app: postgres-db
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: postgres-db
+    spec:
+      containers:
+        - image: postgres:latest
+          name: postgres-db
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: unipool-secret
+                  key: DATABASE_NAME
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: unipool-secret
+                  key: DATABASE_USERNAME
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: unipool-secret
+                  key: DATABASE_PASS
+          ports:
+            - containerPort: 5432
+              name: postgres-db
+          volumeMounts:
+            - name: postgres-persistent-storage
+              mountPath: /var/lib/postgres
+      volumes:
+        - name: postgres-persistent-storage
+          persistentVolumeClaim:
+            claimName: postgres-pv-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-db
+spec:
+  ports:
+    - port: 5432
+  selector:
+    app: postgres-db
