@@ -1,0 +1,37 @@
+- name: Deploy pods for monitoring using ELK
+  hosts: all
+  pre_tasks:
+    - name: Check Minikube's status.
+      command: minikube status
+      register: minikube_status
+      changed_when: false
+      ignore_errors: true
+    # Otherwise will start minikube
+    - name: Start Minikube if it's not running.
+      command: minikube start --vm-driver=docker --cpus 4 --memory 9152
+      when: "not minikube_status.stdout or 'Running' not in minikube_status.stdout"
+    - name: "Install kubernetes python package"
+      pip:
+        name: kubernetes
+        state: present
+  tasks:
+    - name: Delete any existing filebeat deployments
+      kubernetes.core.k8s:
+        src: file-beat-config.yml
+        state: absent
+        namespace: default
+    - name: Delete any existing deployment of logstash
+      kubernetes.core.k8s:
+        src: logstash.yml
+        state: absent
+        namespace: default
+    - name: Create a deployment of filebeat
+      kubernetes.core.k8s:
+        src: file-beat-config.yml
+        state: present
+        namespace: default
+    - name: Create a deployment of logstash
+      kubernetes.core.k8s:
+        src: logstash.yml
+        state: present
+        namespace: default
