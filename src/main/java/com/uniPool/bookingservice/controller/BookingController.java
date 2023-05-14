@@ -29,16 +29,6 @@ public class BookingController {
         }
     }
 
-    @PostMapping("/edit")
-    public ResponseEntity<?> editBooking(@RequestBody Booking booking) {
-        try {
-            return ResponseEntity.ok(bookingService.editBooking(booking));
-        }
-        catch (RuntimeException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        }
-    }
-
     @PostMapping("/search")
     public ResponseEntity<?> searchBooking(@RequestBody Booking booking) {
         try {
@@ -66,6 +56,7 @@ public class BookingController {
 //        booking creator to add users to pool, only creator can add
 //        status ADDED is set
         try {
+            logger.info("addPoolMember of BookingController");
             return ResponseEntity.ok(bookingService.addPoolMember(poolMember));
         }
         catch (RuntimeException exception) {
@@ -89,6 +80,7 @@ public class BookingController {
     @GetMapping("/pool/acceptRequest/{poolId}")
     public ResponseEntity<?> acceptPoolRequest(@PathVariable("poolId") Long poolId) {
         try {
+            logger.info("acceptPoolRequest of BookingController");
             return ResponseEntity.ok(bookingService.acceptPoolRequest(poolId));
         }
         catch (RuntimeException exception) {
@@ -99,6 +91,7 @@ public class BookingController {
     @GetMapping("/pool/rejectRequest/{poolId}")
     public ResponseEntity<?> rejectPoolRequest(@PathVariable("poolId") Long poolId) {
         try {
+            logger.info("rejectPoolRequest of BookingController");
             return ResponseEntity.ok(bookingService.rejectPoolRequest(poolId));
         }
         catch (RuntimeException exception) {
@@ -109,6 +102,7 @@ public class BookingController {
     @GetMapping("/pool/getPoolMembers/{bookingId}")
     public ResponseEntity<?> getPoolMembers(@PathVariable("bookingId") Long bookingId) {
         try {
+            logger.info("getPoolMembers of BookingController");
             return ResponseEntity.ok(bookingService.getAllPoolMembers(bookingId));
         }
         catch (RuntimeException exception) {
@@ -119,6 +113,7 @@ public class BookingController {
     @DeleteMapping("/pool/{poolId}")
     public ResponseEntity<?> removePoolMember(@PathVariable("poolId") Long poolId) {
         try {
+            logger.info("removePoolMember of BookingController");
             return ResponseEntity.ok(bookingService.removePoolMember(poolId));
         }
         catch (RuntimeException exception) {

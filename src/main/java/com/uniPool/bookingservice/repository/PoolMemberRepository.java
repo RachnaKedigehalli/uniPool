@@ -11,4 +11,5 @@ import java.util.List;
 public interface PoolMemberRepository extends JpaRepository<PoolMember, Long> {
     Integer deleteByPoolId(Long poolId);
     List<PoolMember> findPoolMembersByBookingId(Long bookingId);
+    List<PoolMember> findAllByUserId(Long userId);
 }
