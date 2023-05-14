@@ -16,6 +16,7 @@ import {
 import BookingCard from "./BookingCard";
 
 function BookingList({ bookings, booking }) {
+  const [bookingList, setBookingList] = useState(bookings);
   const [isLoading, setIsLoading] = useState(false);
   const { colorMode, toggleColorMode } = useColorMode();
   const add_booking = async () => {
@@ -25,13 +26,14 @@ function BookingList({ bookings, booking }) {
       .then(async (res) => {
         console.log("booking: ", res.data);
         setIsLoading(false);
+        setBookingList([...bookings, res.data]);
       })
       .catch(console.log);
   };
   return (
     <>
       <Box h={"90vh"} paddingY={20} overflowY={"auto"}>
-        {bookings.length == 0 ? (
+        {bookingList.length == 0 ? (
           <>
             <Text>
               No bookings found that match your requirements. Create a new
@@ -43,7 +45,7 @@ function BookingList({ bookings, booking }) {
           </>
         ) : (
           <>
-            {bookings.map((book, index) => {
+            {bookingList.map((book, index) => {
               return <BookingCard book={book} key={index} />;
             })}
           </>

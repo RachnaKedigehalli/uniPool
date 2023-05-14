@@ -40,9 +40,13 @@ function BookingCard({ book }) {
         marginRight: 80,
         marginLeft: 20,
         marginBottom: 20,
+        cursor: "pointer",
       }}
       onClick={() => {
         navigate("/booking", { state: book });
+      }}
+      onMouseOver={(e) => {
+        // e.target.style.background = "red";
       }}
     >
       <HStack>

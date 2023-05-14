@@ -47,7 +47,7 @@ const RegisterForm = () => {
     };
     console.log("body: ", body);
     await axios
-      .post("/api/users/register", body)
+      .post("http://localhost:9898/users/register", body)
       .then(async (res) => {
         console.log("register: ", res.data);
         await dispatch({

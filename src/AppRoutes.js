@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar.tsx";
 import { useStateValue } from "./StateProvider";
 import BookingPage from "./pages/BookingPage";
+import MyTripsPage from "./pages/MyTripsPage";
 
 function AppRoutes() {
   const [state, dispatch] = useStateValue();
@@ -27,6 +28,14 @@ function AppRoutes() {
           element={
             <Protected isSignedIn={state.isLoggedIn}>
               <BookingPage />
+            </Protected>
+          }
+        />
+        <Route
+          path="/myTrips"
+          element={
+            <Protected isSignedIn={state.isLoggedIn}>
+              <MyTripsPage />
             </Protected>
           }
         />

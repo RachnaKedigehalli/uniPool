@@ -37,7 +37,7 @@ function BookingPage(props) {
 
   const handleAccept = async (poolId) => {
     await axios
-      .get(`/api/bookings/pool/acceptRequest/${poolId}`)
+      .get(`http://localhost:9898/bookings/pool/acceptRequest/${poolId}`)
       .then((res) => {
         console.log("accept success: ", res.data);
         setIsLoading(!isLoading);
@@ -49,7 +49,7 @@ function BookingPage(props) {
 
   const removePoolMember = async (poolId) => {
     await axios
-      .delete(`/api/bookings/pool/${poolId}`)
+      .delete(`http://localhost:9898/bookings/pool/${poolId}`)
       .then((res) => {
         console.log("deleted success: ", res.data);
         setIsLoading(!isLoading);
@@ -60,7 +60,7 @@ function BookingPage(props) {
   };
   const handleReject = async (poolId) => {
     await axios
-      .get(`/api/bookings/pool/rejectRequest/${poolId}`)
+      .get(`http://localhost:9898/bookings/pool/rejectRequest/${poolId}`)
       .then((res) => {
         console.log("reject success: ", res.data);
         setIsLoading(!isLoading);
@@ -75,7 +75,7 @@ function BookingPage(props) {
       userId: state.user.userId,
     };
     await axios
-      .post(`/api/bookings/pool/sendRequest`, body)
+      .post(`http://localhost:9898/bookings/pool/sendRequest`, body)
       .then(async (res) => {
         console.log("add pool member: ", res.data);
       })
@@ -85,7 +85,7 @@ function BookingPage(props) {
 
   useEffect(() => {
     axios
-      .get(`/api/users/id/${book.creatorUserId}`)
+      .get(`http://localhost:9898/users/id/${book.creatorUserId}`)
       .then(async (res) => {
         console.log("users: ", res.data);
         setUser(res.data);
@@ -93,14 +93,16 @@ function BookingPage(props) {
       .catch(console.log);
 
     axios
-      .get(`/api/bookings/pool/getPoolMembers/${book.bookingId}`)
+      .get(
+        `http://localhost:9898/bookings/pool/getPoolMembers/${book.bookingId}`
+      )
       .then(async (res1) => {
         console.log("pool: ", res1.data);
         var pool_members = [];
         for (var i = 0; i < res1.data.length; i++) {
           var p = res1.data[i];
           await axios
-            .get(`/api/users/id/${p.userId}`)
+            .get(`http://localhost:9898/users/id/${p.userId}`)
             .then(async (res2) => {
               pool_members.push({ ...p, ...res2.data });
               console.log("pool user: ", { ...p, ...res2.data });

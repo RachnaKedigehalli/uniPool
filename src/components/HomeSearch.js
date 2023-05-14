@@ -171,7 +171,7 @@ function HomeSearch() {
                   ml={1}
                   mb={2}
                 >
-                  Starting of time
+                  Start of window
                 </Text>
                 <Input
                   borderRadius="input"
