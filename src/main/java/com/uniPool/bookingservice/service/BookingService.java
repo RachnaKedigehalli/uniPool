@@ -27,7 +27,15 @@ public class BookingService {
 
     public List<Booking> searchBooking(Booking booking) {
         log.info("searchBooking of BookingService");
-        return bookingRepository.findAllByDestinationAndSourceAndStartTimeLessThanEqualAndEndTimeGreaterThanEqual(booking.getDestination(), booking.getSource(), booking.getEndTime(), booking.getEndTime());
+        return bookingRepository
+                .findAllByDestinationAndSourceAndStartTimeLessThanEqualAndEndTimeGreaterThanEqual(
+                        booking.getDestination(), booking.getSource(), booking.getEndTime(), booking.getEndTime()
+                );
+    }
+
+    public List<Booking> getBookingsOfUser(Long userId) {
+        log.info("getBookingsOfUser of searchBooking");
+        return bookingRepository.findAllByCreatorUserId(userId);
     }
 
     public PoolMember addPoolMember(PoolMember poolMember) {
@@ -80,5 +88,10 @@ public class BookingService {
 
     public List<PoolMember> getAllPoolMembers(Long bookingId) {
         return poolMemberRepository.findPoolMembersByBookingId(bookingId);
+    }
+
+    public void deleteAll() {
+        bookingRepository.deleteAll();
+        poolMemberRepository.deleteAll();
     }
 }

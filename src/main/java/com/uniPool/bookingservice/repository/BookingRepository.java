@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long> {
     List<Booking> findAllByDestinationAndSourceAndStartTimeLessThanEqualAndEndTimeGreaterThanEqual(String destination, String source, Date end1, Date end2);
+
+    List<Booking> findAllByCreatorUserId(Long creatorUserId);
 }

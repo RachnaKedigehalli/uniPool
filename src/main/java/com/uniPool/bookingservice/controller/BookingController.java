@@ -21,7 +21,7 @@ public class BookingController {
     @PostMapping("/")
     public ResponseEntity<?> addBooking(@Valid @RequestBody Booking booking) {
         try {
-            logger.info("Booking added");
+            logger.info("addBooking of BookingController");
             return ResponseEntity.ok(bookingService.addBooking(booking));
         }
         catch (RuntimeException exception) {
@@ -42,8 +42,19 @@ public class BookingController {
     @PostMapping("/search")
     public ResponseEntity<?> searchBooking(@RequestBody Booking booking) {
         try {
-            logger.info("Searched for a booking");
+            logger.info("Searching for a booking");
             return ResponseEntity.ok(bookingService.searchBooking(booking));
+        }
+        catch (RuntimeException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<?> getBookingsOfUser(@PathVariable("userId") Long userId) {
+        try {
+            logger.info("getBookingsOfUser of BookingController");
+            return ResponseEntity.ok(bookingService.getBookingsOfUser(userId));
         }
         catch (RuntimeException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
@@ -114,4 +125,6 @@ public class BookingController {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
+
+
 }
