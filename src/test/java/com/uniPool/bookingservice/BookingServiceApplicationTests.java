@@ -53,6 +53,11 @@ class BookingServiceApplicationTests {
 					.andExpect(jsonPath("$.destination").value("B"));
 	}
 
+	@AfterEach
+	void clear() {
+		bookingService.deleteAll();
+	}
+
 	@Test 
 	void testAddBooking() throws Exception{
 		JSONObject obj = new JSONObject();
@@ -85,9 +90,5 @@ class BookingServiceApplicationTests {
 			.andExpect(content().string(containsString("15")));
 	}
 
-	@AfterEach
-	void clear() {
-		bookingService.deleteAll();
-	}
-
+	
 }
