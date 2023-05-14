@@ -45,7 +45,7 @@ const LoginForm = (props) => {
     };
     console.log("body: ", body);
     await axios
-      .post("http://localhost:9898/users/login", body)
+      .post("/api/users/login", body)
       .then(async (res) => {
         console.log("login: ", res.data);
         setIsLoading(false);
