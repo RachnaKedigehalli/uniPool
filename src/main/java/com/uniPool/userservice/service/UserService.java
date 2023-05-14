@@ -3,7 +3,6 @@ package com.uniPool.userservice.service;
 import com.uniPool.userservice.entity.User;
 import com.uniPool.userservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,7 +32,6 @@ public class UserService {
         user.setEmail(user.getEmail().toLowerCase());
         if (Objects.nonNull(user.getEmail()) && !"".equalsIgnoreCase(user.getEmail()) && userRepository.existsByEmail(user.getEmail())) {
             User dbUser = userRepository.findDistinctByEmail(user.getEmail());
-            System.out.println("Password encrypted entered " + user.getPassword());
             if (passwordEncoder.matches(user.getPassword(), dbUser.getPassword())) {
                 return dbUser;
             }
