@@ -21,6 +21,7 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody User user) {
+        logger.info("register in UserController");
         try {
             return ResponseEntity.ok(userService.register(user));
         }
@@ -31,6 +32,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
+        logger.info("login in UserController");
         try {
             return ResponseEntity.ok(userService.login(user));
         }
@@ -42,6 +44,7 @@ public class UserController {
     // for blacklist --------------------
     @PostMapping("/multiple")
     public ResponseEntity<?> getUsersById(@RequestBody List<Long> userIds) {
+        logger.info("getUsersById in UserController");
         try {
             return ResponseEntity.ok(userService.getUsersById(userIds));
         }
@@ -53,7 +56,6 @@ public class UserController {
     @GetMapping("/exists/id/{id}")
     public ResponseEntity<?> existsById(@PathVariable("id") Long userId) {
         logger.info("existsById in UserController");
-        System.out.println("existsById in UserController");
         try {
             return ResponseEntity.ok(userService.existsById(userId));
         }
@@ -69,11 +71,13 @@ public class UserController {
 
     @GetMapping("/id/{id}")
     public User getUserById(@PathVariable("id") Long id) {
+        logger.info("getUserById in UserController");
         return userService.getUserById(id);
     }
 
     @GetMapping("/all")
     public List<User> getAllUsers() {
+        logger.info("getAllUsers in UserController");
         return userService.getAllUsers();
     }
 

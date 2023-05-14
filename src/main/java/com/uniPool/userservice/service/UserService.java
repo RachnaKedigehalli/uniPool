@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
 public class UserService {
     private final PasswordEncoder passwordEncoder;
@@ -19,7 +18,6 @@ public class UserService {
     private UserRepository userRepository;
 
     public User register(User user) {
-        log.info("register of UserService");
         if(user.getEmail().equals("") || user.getPassword().equals(""))
             throw new RuntimeException("Invalid fields");
         user.setEmail(user.getEmail().toLowerCase());
@@ -32,7 +30,6 @@ public class UserService {
     }
 
     public User login(User user) {
-        log.info("login of UserService");
         user.setEmail(user.getEmail().toLowerCase());
         if (Objects.nonNull(user.getEmail()) && !"".equalsIgnoreCase(user.getEmail()) && userRepository.existsByEmail(user.getEmail())) {
             User dbUser = userRepository.findDistinctByEmail(user.getEmail());
@@ -50,7 +47,6 @@ public class UserService {
     }
 
     public User getUserById(Long id) {
-        log.info("getUserById of UserService");
         return userRepository.findById(id).get();
     }
 
