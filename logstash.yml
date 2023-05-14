@@ -80,10 +80,10 @@ data:
 
         mutate {
           split => ["tmp_path", "#"]
-          add_field => { "kubernetes.node.pod.name" => "%{[tmp_path][2]}" }
-          add_field => { "kubernetes.node.name" => "%{[tmp_path][3]}" }
-          add_field => { "kubernetes.namespace" => "%{[tmp_path][4]}" }
-          add_field => { "tmp_podname" => "%{[tmp_path][5]}" }
+          add_field => { "kubernetes.node.pod.name" => "%{[tmp_path][1]}" }
+          add_field => { "kubernetes.node.name" => "%{[tmp_path][2]}" }
+          add_field => { "kubernetes.namespace" => "%{[tmp_path][3]}" }
+          add_field => { "tmp_podname" => "%{[tmp_path][4]}" }
         }
 
         mutate {
