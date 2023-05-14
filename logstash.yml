@@ -75,7 +75,7 @@ data:
         }
 
         mutate {
-          add_field => { "tmp_path" => "%{src_file}" }
+          add_field => { "tmp_path" => "%{[log][file][path]}" }
         }
 
         mutate {
